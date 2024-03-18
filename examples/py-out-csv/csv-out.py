@@ -14,12 +14,13 @@ import nDPIsrvd
 from nDPIsrvd import nDPIsrvdSocket, TermColor
 
 class MutableDataframes:
-    def __init__(self):
+    def __init__(self, label):
         self.FlowDF = [pd.DataFrame()]
         self.PacketDF = [pd.DataFrame()]
-
+        self.label = label
 
 def onJsonLineRecvdToCSV(json_dict, instance, current_flow, global_user_data):
+    json_dict['label'] = global_user_data.label
     new_df = pd.DataFrame([json_dict])
     if 'flow_event_name' in json_dict:
         if json_dict['flow_event_name'] == 'analyse' and json_dict['flow_state'] == 'finished':
@@ -47,7 +48,7 @@ if __name__ == '__main__':
     nsock = nDPIsrvdSocket()
     nDPIsrvd.prepareJsonFilter(args, nsock)
     nsock.connect(address)
-    df = MutableDataframes()
+    df = MutableDataframes(args.label)
     try:
         nsock.loop(onJsonLineRecvdToCSV, None, df)
     except KeyboardInterrupt:

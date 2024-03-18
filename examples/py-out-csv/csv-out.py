@@ -23,8 +23,8 @@ def onJsonLineRecvdToCSV(json_dict, instance, current_flow, global_user_data):
     json_dict['label'] = global_user_data.label
     new_df = pd.DataFrame([json_dict])
     if 'flow_event_name' in json_dict:
-        if json_dict['flow_event_name'] == 'analyse' and json_dict['flow_state'] == 'finished':
-            global_user_data.FlowDF[0] = pd.concat([global_user_data.FlowDF[0], new_df], ignore_index=False)
+        #if json_dict['flow_event_name'] == 'analyse' and json_dict['flow_state'] == 'finished':
+        global_user_data.FlowDF[0] = pd.concat([global_user_data.FlowDF[0], new_df], ignore_index=False)
         #global_user_data.FlowDF[0] = global_user_data.FlowDF[0].join(new_df, how='outer', on='flow_id', lsuffix="initial")
 
     if 'packet_event_name' in json_dict:

@@ -527,6 +527,7 @@ def defaultArgumentParser(desc='nDPIsrvd Python Interface', enable_json_filter=F
                           help_formatter=argparse.ArgumentDefaultsHelpFormatter):
     parser = argparse.ArgumentParser(description=desc, formatter_class=help_formatter)
     parser.add_argument('--host', type=str, help='nDPIsrvd host IP')
+    parser.add_argument('--label', type=str, default='non-vpn', help="Label to add to df. Used in examples/py-out-csv")
     parser.add_argument('--port', type=int, default=DEFAULT_PORT, help='nDPIsrvd TCP port')
     parser.add_argument('--unix', type=str, help='nDPIsrvd unix socket path')
     if enable_json_filter is True:
